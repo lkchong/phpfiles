@@ -1,15 +1,17 @@
 <?php
 	require "conn.php";
 	
-	$pdo = new PDO("mysql:host=$server_name;dbname=$db_name", $mysql_username, $mysql_password);
+	$accounts = array();
+	$sql = 'CALL Get_Accounts';
 	
-	$sql = 'CALL Get_Saving_Accounts()';
-	
-	$result = $pdo->query($sql);
-	$result->setFetchMode(PDO::FETCH_ASSOC);
-	
-	while($values= $result->fetch()) {
-		print "<pre>";
-		print_r($values);
+	$result = mysqli_query($conn, $sql);
+		
+	while ($row = mysqli_fetch_assoc($result)) {
+		array_push($accounts, $row);
 	}
+
+	$response['accounts'] = $accounts;
+	echo json_encode($response);
+
+	mysqli_close($conn);
 ?>
