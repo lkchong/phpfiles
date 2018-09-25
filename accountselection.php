@@ -1,8 +1,9 @@
 <?php
 	require "conn.php";
 	
+	$custID = $_POST["custID"];
 	$accounts = array();
-	$sql = 'CALL Get_Accounts';
+	$sql = "CALL Get_Accounts('$custID')";
 	
 	$result = mysqli_query($conn, $sql);
 		
