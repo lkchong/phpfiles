@@ -1,10 +1,9 @@
 <?php
 	require "conn.php";
-	//$user_name = $_POST["user"];
-	//$user_pass = $_POST["pass"];
 
 	$user_name = $_POST["user"];
 	$user_pass = $_POST["pass"];
+
 
 	$mysql_qry = "select cust_id from customer  where username like '$user_name' and password like '$user_pass'";
 
