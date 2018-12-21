@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	Awaiting Confirmation
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+			function request(x) {
+				$.ajax({
+					type:"POST",
+					url:"check_transc_status.php",
+					data: "transctID=" + x,
+					success: function (data) {
+						alert(data);
+					}
+				});
+
+				//setTimeout(request(x), 1000);
+			}
+	</script>
+
+	<title></title>
+</head>
+<body>
+		<br><br><input type="submit" id="callQuery value="Show" onclick="request(6666);"/>
+</body>
+</html>

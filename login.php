@@ -4,7 +4,6 @@
 	$user_name = $_POST["user"];
 	$user_pass = $_POST["pass"];
 
-
 	$mysql_qry = "select cust_id from customer  where username like '$user_name' and password like '$user_pass'";
 
 	$result = mysqli_query($conn, $mysql_qry);
@@ -16,4 +15,6 @@
 	else {
 		echo "Failed";
 	}
+
+	mysqli_close($conn);
 ?>

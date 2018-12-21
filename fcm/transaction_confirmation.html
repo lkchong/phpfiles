@@ -1,0 +1,122 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+			function request(x) {
+				$.ajax({
+					type:"POST",
+					url:"check_transc_status.php",
+					data: "transctID=" + x,
+					success: function (data) {
+						if (data == 'Success') {
+							disableDiv4();
+							enableDiv2();
+						} else if (data == 'Failed') {
+							disableDiv4();
+							enableDiv3();
+						} else {
+							setTimeout(request(x), 1000);
+						}
+					}
+				});
+			}
+	</script>
+	<script type="text/javascript">
+		function submitTransaction() {
+			$.ajax({
+				type:"POST",
+				url:"send_notification.php",
+				data: "title=" + document.getElementById("title").value +
+					  "&username=" + document.getElementById("username").value +
+					  "&transctDetails=" + document.getElementById("transctDetails").value +
+					  "&transctAmt=" + document.getElementById("transctAmt").value,
+				success: function (data) {
+					disableDiv1();
+					enableDiv4();
+					request(data);
+				}
+			});
+		}
+	</script>
+	<script type="text/javascript">
+		function disableDiv1() {
+			document.getElementById('div1').style.display = "none";
+		}
+	</script>
+
+	<script type="text/javascript">
+		function enableDiv2() {
+			document.getElementById('div2').style.display = "inline";
+		}
+	</script>
+
+	<script type="text/javascript">
+		function enableDiv3() {
+			document.getElementById('div3').style.display = "inline";
+		}
+	</script>
+
+	<script type="text/javascript">
+		function disableDiv4() {
+			document.getElementById('div4').style.display = "none";
+		}
+	</script>
+
+	<script type="text/javascript">
+		function enableDiv4() {
+			document.getElementById('div4').style.display = "inline";
+		}
+	</script>	
+</head>
+	<body>
+		<!--<input type="submit" id="callQuery" value="Show" onclick="request(6666);"/>-->
+
+
+		<div1 id="div1">
+		<!--<form action="send_notification.php" method="post">-->
+			<table>
+					<!--Title: <input type="text" name="title"/><br>
+					Message : <input type="text" name="message"/><br> -->
+				<tr>
+					<td>Title: </td><td><input type="text" id="title" /></td>
+				</tr>
+				<!--<tr>
+					<td>Message: </td><td><input type="text" name="message" /></td>
+				</tr>-->
+				<tr><td><br></td></tr>
+				<tr>
+					<td>Username: </td><td><input type="text" id="username" /></td>
+				</tr>
+				<!--<tr>
+					<td>Transct ID: </td><td><input type="text" id="transctID" /></td>
+				</tr>-->
+				<tr>
+					<td>Transct Details: </td><td><input type="text" id="transctDetails" /></td>
+				</tr>
+				<!--<tr>
+					<td>Transct DateTime: </td><td><input type="text" name="transctDateTime" /></td>
+				</tr>-->
+				<tr>
+					<td>Transct Amt: </td><td><input type="text" id="transctAmt" /></td>
+				</tr>
+				<tr>
+					<td></td><td align="right"><input type="submit" onclick="submitTransaction();"/></td>
+				</tr>
+			</table>
+		<!--</form>-->
+	</div1>
+
+	<div2 id="div2" style="display:none">
+		<h1>Transaction Successful</h1>
+	</div2>
+
+	<div3 id="div3" style="display:none">
+		<h1>Transaction Unsuccessful</h1>
+	</div3>
+
+	<div3 id="div4" style="display:none">
+		<h1>Transaction Pending</h1>
+	</div3>
+
+	</body>
+</html>
